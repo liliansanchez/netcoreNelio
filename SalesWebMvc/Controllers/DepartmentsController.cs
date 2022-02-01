@@ -11,6 +11,9 @@ namespace SalesWebMvc.Controllers
 {
     public class DepartmentsController : Controller
     {
+        //metodos sincronos = mais lento, bloqueia a aplicacao enquanto o processo nao for finalizado
+        //metodos assincronos = mais rapido, nao bloqueia a aplicação enquanto o processo estive em execucao
+        
         private readonly SalesWebMvcContext _context;
 
         public DepartmentsController(SalesWebMvcContext context)

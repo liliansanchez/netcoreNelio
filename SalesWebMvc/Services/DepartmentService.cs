@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace SalesWebMvc.Services
 {
@@ -15,17 +16,21 @@ namespace SalesWebMvc.Services
             _context = context;
         }
 
-        //operacao sincrona = roda o acesso ao banco de dados e a aplicacao vai ficar bloqueada esperando esta operacao 
-        //terminar
-        public List<Department> FindAll()
+        public async Task<List<Department>> FindAllAsync()
         {
-            return _context.Department.OrderBy(x => x.Name).ToList();
+            //aviso ao compilador que estou fazendo uma chamada assincrona e nao bloqueio a aplicacao
+            return await _context.Department.OrderBy(x => x.Name).ToListAsync();
         }
 
         public void Insert(Department obj)
         {
             _context.Add(obj);
             _context.SaveChanges();
+        }
+
+        internal Task FindAll()
+        {
+            throw new NotImplementedException();
         }
     }
 }
